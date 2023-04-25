@@ -1,0 +1,381 @@
+<app-nav-menu></app-nav-menu>
+<div class="sidebar">
+
+  <button (click)="toggle(0)" class="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">All toys</button>
+  <button (click)="toggle(1)" class="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Store 1</button>
+  <button (click)="toggle(2)" class="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Store 2</button>
+  <button (click)="additem()" class="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Add Item</button>
+
+</div>
+
+<li class="nav-item active" *ngIf="!isLoggedIn">
+  <a class="nav-link navbar-text" (click)="open(content)" href="#"><b>Login & Signup</b></a>
+</li>
+<div class="btn-group mr-3" *ngIf="isLoggedIn">
+  <button class="dropdown-item" (click)="LogOut()">LogOut</button>
+</div>
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header" style="background: deepskyblue; font-size: xx-large;">
+    <h4 class="modal-title" id="modal-basic-title">Registration & SignIn</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <!-- Tab Start Code -->
+    <ngb-tabset>
+      <ngb-tab>
+        <ng-template ngbTabTitle><b>Login</b> </ng-template>
+        <ng-template ngbTabContent>
+          <br>
+          <form [formGroup]="loginForm">
+            <div class="form-group">
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">@</span>
+                </div>
+                <input type="text" formControlName="UserName" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+              </div>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">*</span>
+                </div>
+                <input type="password" formControlName="Password" class="form-control" placeholder="Password" aria-label="Username" aria-describedby="basic-addon1">
+              </div>
+            </div>
+            <button type="button" style="margin-left: 39%;" [disabled]="!loginForm.valid" class="btn btn-outline-success" (click)="Login()"><b>Login</b></button>
+          </form>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab>
+        <ng-template ngbTabTitle><b>Register</b> </ng-template>
+        <ng-template ngbTabContent>
+          <br>
+          <form [formGroup]="registrationForm">
+            <div class="form-group">
+              <div class="row">
+                <div class="col-md-2">
+                  <label for="FormControlUserName" style="color: lightseagreen;font-size: medium;"><b>User Name*:</b></label>
+                </div>
+                <div class="col-md-6">
+                  <input type="text" formControlName="UserName" placeholder="User Name" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                </div>
+                <div class="col-md-4">
+
+                  <span style="font-weight: bold;color: red;" *ngIf="!registrationForm.controls['UserName'].valid&&registrationForm.controls['UserName'].dirty">
+                    <span *ngIf="registrationForm.controls.UserName.errors.required">User Name is Required.</span>
+                    <span *ngIf="registrationForm.controls.UserName.errors.minlength">User name minimum should be length of 3.</span>
+                    <span *ngIf="registrationForm.controls.UserName.errors.maxlength">User name maximum should be length of 50.</span>
+                  </span>
+
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-md-2">
+                  <label for="FormControlPassword" style="color: lightseagreen;font-size: medium;"><b>Password*:</b></label>
+                </div>
+                <div class="col-md-6">
+                  <input type="password" formControlName="Password" placeholder="Password" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                </div>
+                <div class="col-md-4">
+                  <span style="font-weight: bold;color: red;" *ngIf="!registrationForm.controls['Password'].valid&&registrationForm.controls['Password'].dirty">
+                    <span *ngIf="registrationForm.controls.Password.errors.required">Password is Required.</span>
+                    <span *ngIf="registrationForm.controls.Password.errors.minlength">Password minimum should be length of 3.</span>
+                    <span *ngIf="registrationForm.controls.Password.errors.maxlength">Password maximum should be length of 50.</span>
+                  </span>
+                </div>
+              </div>
+
+              <br>
+              <div class="row">
+                <div class="col-md-2">
+                  <label for="FormControlEmail" style="color: lightseagreen;font-size: medium;"><b>Email*:</b></label>
+                </div>
+                <div class="col-md-6">
+                  <input type="email" formControlName="Email" placeholder="Email" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                </div>
+                <div class="col-md-4">
+                  <span style="font-weight: bold;color: red;" *ngIf="!registrationForm.controls['Email'].valid&&registrationForm.controls['Email'].dirty">
+                    <span *ngIf="registrationForm.controls.Email.errors.required">Email is Required.</span>
+                    <span *ngIf="registrationForm.controls.Email.errors.email">Email is not in correct pattern.</span>
+                  </span>
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-md-2">
+                  <label for="FormControlRole" style="color: lightseagreen;font-size: medium;"><b>Role*:</b></label>
+                </div>
+                <div class="col-md-6">
+                  <!-- <input type="text" formControlName="Role" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"> -->
+                  <select class="form-control" formControlName="Role" id="exampleFormControlSelect2">
+                    <option [ngValue]="undefined">Select Role</option>
+                    <option>Customer</option>
+                    <option>Sellers</option>
+                    <option>Tech Support</option>
+                    <option>CSE</option>
+                  </select>
+                </div>
+                <div class="col-md-4">
+                  <span style="font-weight: bold;color: red;" *ngIf="!registrationForm.controls['Role'].valid&&registrationForm.controls['Role'].dirty&&registrationForm.controls['Role'].touched">
+                    <span *ngIf="registrationForm.controls.Role.errors.required">Role is Required.</span>
+                  </span>
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-md-2">
+                  <label for="FormControlPhone" style="color: lightseagreen;font-size: medium;"><b>Phone No*:</b></label>
+                </div>
+                <div class="col-md-6">
+                  <input type="text" formControlName="Phone" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                </div>
+                <div class="col-md-4">
+                  <span style="font-weight: bold;color: red;" *ngIf="!registrationForm.controls['Phone'].valid&&registrationForm.controls['Phone'].dirty">
+                    <span *ngIf="registrationForm.controls.Phone.errors.required">Phone is Required.</span>
+                  </span>
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-md-2">
+                  <label for="FormControlGender" style="color: lightseagreen;font-size: medium;"><b>Gender:</b></label>
+                </div>
+                <div class="col-md-6">
+                  <!-- <input type="text" formControlName="Gender" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"> -->
+                  <select class="form-control" formControlName="Gender" id="exampleFormControlSelect1">
+                    <option>Select Gender</option>
+                    <option>Male</option>
+                    <option>Female</option>
+                    <option>Not prefer to dislose</option>
+                  </select>
+                </div>
+                <div class="col-md-4">
+
+                </div>
+              </div>
+            </div>
+            <button type="button" style="margin-left: 39%;" [disabled]="!registrationForm.valid" class="btn btn-outline-success" (click)="OnRegister(registrationForm.value)"><b>Register</b></button>
+          </form>
+
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+    <!-- Tab End Code -->
+  </div>
+  <div class="modal-footer">
+    <p *ngFor="let alert of alerts">
+      <ngb-alert style="width: 758px;" [type]="alert.type" (close)="closeAlert(alert)">{{ alert.message }}</ngb-alert>
+    </p>
+  </div>
+</ng-template>
+
+
+
+
+
+
+
+
+
+<div *ngIf="addtoy">
+  <div class="relative z-10" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
+    <!--
+      Background backdrop, show/hide based on slide-over state.
+
+      Entering: "ease-in-out duration-500"
+        From: "opacity-0"
+        To: "opacity-100"
+      Leaving: "ease-in-out duration-500"
+        From: "opacity-100"
+        To: "opacity-0"
+    -->
+    <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+
+    <div class="fixed inset-0 overflow-hidden">
+      <div class="absolute inset-0 overflow-hidden">
+        <div class="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
+          <!--
+            Slide-over panel, show/hide based on slide-over state.
+
+            Entering: "transform transition ease-in-out duration-500 sm:duration-700"
+              From: "translate-x-full"
+              To: "translate-x-0"
+            Leaving: "transform transition ease-in-out duration-500 sm:duration-700"
+              From: "translate-x-0"
+              To: "translate-x-full"
+          -->
+          <div class="pointer-events-auto w-screen max-w-md">
+            <div class="flex h-full flex-col overflow-y-scroll bg-white shadow-xl">
+              <div class="flex-1 overflow-y-auto py-6 px-4 sm:px-6">
+                <div class="flex items-start justify-between">
+                  <h2 class="text-lg font-medium text-gray-900" id="slide-over-title">Shopping cart</h2>
+                  <div class="ml-3 flex h-7 items-center">
+                    <button (click)="additem()" class="-m-2 p-2 text-gray-400 hover:text-gray-500">
+                      <span class="sr-only">Close panel</span>
+                      <!-- Heroicon name: outline/x-mark -->
+                      <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label>id</label>
+                  <input type="number" [(ngModel)]="formtoys.id" class="form-control" />
+                </div>
+                <div class="form-group">
+                  <label>name</label>
+                  <input type="text" [(ngModel)]="formtoys.name" class="form-control" />
+                </div>
+                <div class="form-group">
+                  <label>price</label>
+                  <input type="number" [(ngModel)]="formtoys.price" class="form-control" />
+                </div>
+                <div class="form-group">
+                  <label>image</label>
+                  <input type="text" [(ngModel)]="formtoys.image" class="form-control" />
+                </div>
+                <div>
+                  <label>store1</label>
+                  <select [(ngModel)]="choosestore1" name="store1" class="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
+                    <option>{{false}}</option>
+                    <option>{{true}}</option>
+
+                  </select>
+
+                </div>
+                <div>
+                  <label>store2</label>
+                  <select [(ngModel)]="choosestore2" name="store2" class="mt-1 block w-full rounded-md border border-gray-300 bg-white py-2 px-3 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
+                    <option>{{fals}}</option>
+                    <option>{{tru}}</option>
+
+                  </select>
+
+                </div>
+                <!--- <div class="form-group">
+                  <label>store1</label>
+                  <input type="number" [(ngModel)]="formtoys.store1" class="form-control" />
+                </div>
+
+                              <div class="form-group">
+                                <label>store2</label>
+                                <input type="number" [(ngModel)]="formtoys.store2" class="form-control" />
+                              </div>
+                                -->
+                <div class="form-group">
+                  <label>Age Category</label>
+                  <input type="text" [(ngModel)]="formtoys.ageCategory" class="form-control" />
+                </div>
+
+
+
+                <div class="border-t border-gray-200 py-6 px-4 sm:px-6">
+                  <div class="flex justify-between text-base font-medium text-gray-900">
+                  </div>
+                  <div class="mt-6">
+                    <button (click)="save()" class="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Save</button>
+                  </div>
+                  <div class="mt-6 flex justify-center text-center text-sm text-gray-500">
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+<h2 class="text-2xl font-bold tracking-tight text-gray-900">Toys List</h2>
+<div container *ngFor="let toy of toys">
+
+  <div class="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+    <div class="group relative">
+      <div class="container" style="width: 300pt;" *ngIf=" buttonselected == 0">
+        <div class="group relative">
+          <div class="min-h-80 aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75 lg:aspect-none lg:h-80">
+            <img src={{toy.image}} alt="Front of men&#039;s Basic Tee in black." class="h-full w-full object-center lg:h-full lg:w-full">
+          </div>
+          <div class="mt-4 flex justify-between">
+            <div>
+              <h3 class="text-sm text-gray-700">
+                <a href="#">
+                  <span aria-hidden="true" class="absolute inset-0"></span>
+                  {{toy.name}}
+                </a>
+              </h3>
+              <p class="mt-1 text-sm text-gray-500">{{toy.category}}</p>
+            </div>
+            <p class="text-sm font-medium text-gray-900">{{toy.price}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+    <div class="group relative">
+      <div class="container" style="width: 300px;" *ngIf=" toy.store1 && buttonselected == 1">
+        <div class="group relative">
+          <div class="min-h-80 aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-md bg-gray-200 group-hover:opacity-75 lg:aspect-none lg:h-80">
+            <img src={{toy.image}} alt="Front of men&#039;s Basic Tee in black." class="h-full w-full object-center lg:h-full lg:w-full">
+          </div>
+          <div class="mt-4 flex justify-between">
+            <div>
+              <h3 class="text-sm text-gray-700">
+                <a href="#">
+                  <span aria-hidden="true" class="absolute inset-0"></span>
+                  {{toy.name}}
+                </a>
+              </h3>
+              <p class="mt-1 text-sm text-gray-500">{{toy.category}}</p>
+            </div>
+            <p class="text-sm font-medium text-gray-900">{{toy.price}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+    <div class="group relative">
+      <div class="container" style="width: 300px;" *ngIf="toy.store2 && buttonselected == 2">
+
+        <div class="group relative">
+          <img src={{toy.image}} alt="Front of men&#039;s Basic Tee in black." class="h-full w-full  object-center lg:h-full lg:w-full">
+          <div class="mt-4 flex justify-between">
+            <div>
+              <h3 class="text-sm text-gray-700">
+                <a href="#">
+                  <span aria-hidden="true" class="absolute inset-0"></span>
+                  {{toy.name}}
+                </a>
+              </h3>
+              <p class="mt-1 text-sm text-gray-500">{{toy.category}}</p>
+            </div>
+            <p class="text-sm font-medium text-gray-900">{{toy.price}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- More products... -->
+               

@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "name": "Xiao Wu",
+    "price": 1500,
+    "image": "https://bbts1.azureedge.net/images/p/full/2021/08/a29db28b-f11f-4b1a-a420-07a286cf64c5.jpg",
+    "category": "Soul Land",
+    "store1": true,
+    "store2": true,
+    "ageCategory": "old"
+  },
+  {
+    "id": 2,
+    "name": "Qian Renxue",
+    "price": 1700,
+    "image": "https://bbts1.azureedge.net/images/p/full/2022/01/5bc16290-b3e2-4cf6-a710-55486cba5e8c.jpg",
+    "category": "Soul Land",
+    "store1": true,
+    "store2": true,
+    "ageCategory": "old"
+  },
+
+  {
+    "id": 3,
+    "name": "Asuka",
+    "price": 180,
+    "image": "https://bbts1.azureedge.net/images/p/full/2022/03/60d936db-ae39-42f9-9b4b-e81658e4aad6.jpg",
+    "category": "Evangelion",
+    "store1": true,
+    "store2": true,
+    "ageCategory": "old"
+  },
+
+  {
+    "id": 4,
+    "name": "Ayanami Rey",
+    "price": 220,
+    "image": "https://bbts1.azureedge.net/images/p/full/2022/02/339a1fdc-18f4-4ca7-88c7-d12c30be8e25.jpg",
+    "category": "Evangelion",
+    "store1": true,
+    "store2": true,
+    "ageCategory": "old"
+  }
+]

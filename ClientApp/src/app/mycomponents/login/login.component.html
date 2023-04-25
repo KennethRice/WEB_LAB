@@ -1,0 +1,18 @@
+<form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)">
+  <h3>id</h3>
+  <input type="text" pInputText formControlName="id" />
+  <h3>name</h3>
+  <input type="text" pInputText formControlName="name" />
+  <p-inputNumber formControlName="salary"></p-inputNumber>
+  <h3>Age</h3>
+  <p-inputNumber formControlName="age"></p-inputNumber>
+  <!-- <input type="text" pInputText formControlName="age" /> -->
+  <h3>High Education</h3>
+  <p-checkbox formControlName="highEducation" [binary]="true"></p-checkbox>
+  <h3>ID</h3>
+  <br>
+
+  <p-multiSelect [options]="func" optionLabel="function" formControlName="funcid"></p-multiSelect>
+  <br>
+  <p-button label="Create" (onClick)="onSubmit(myForm)" [disabled]="!myForm.valid"></p-button>
+</form>
